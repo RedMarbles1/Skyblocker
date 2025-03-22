@@ -5,6 +5,7 @@ import de.hysky.skyblocker.config.SkyblockerConfigManager;
 import de.hysky.skyblocker.utils.ItemUtils;
 import de.hysky.skyblocker.utils.NEURepoManager;
 import io.github.moulberry.repo.data.NEUCraftingRecipe;
+import io.github.moulberry.repo.data.NEUForgeRecipe;
 import io.github.moulberry.repo.data.NEUItem;
 import io.github.moulberry.repo.data.NEURecipe;
 import net.minecraft.item.ItemStack;
@@ -25,6 +26,7 @@ public class ItemRepository {
     private static final List<ItemStack> items = new ArrayList<>();
     private static final Map<String, ItemStack> itemsMap = new HashMap<>();
     private static final List<SkyblockCraftingRecipe> recipes = new ArrayList<>();
+	private static final List<SkyblockForgeRecipe> forgeRecipes = new ArrayList<>();
     private static boolean filesImported = false;
 
     @Init
@@ -66,8 +68,10 @@ public class ItemRepository {
         for (NEURecipe recipe : item.getRecipes()) {
             if (recipe instanceof NEUCraftingRecipe neuCraftingRecipe) {
                 recipes.add(SkyblockCraftingRecipe.fromNEURecipe(neuCraftingRecipe));
-            }
-        }
+            } else if (recipe instanceof NEUForgeRecipe neuForgeRecipe) {
+				forgeRecipes.add(SkyblockForgeRecipe.fromNEURecipe(neuForgeRecipe));
+			}
+		}
     }
 
     public static String getWikiLink(String neuId) {
@@ -128,7 +132,7 @@ public class ItemRepository {
     public static ItemStack getItemStack(String neuId) {
         return itemsMap.get(neuId);
     }
-
+	public static Stream<SkyblockForgeRecipe> getForgeRecipesStream() { return forgeRecipes.stream();}
     public static Stream<SkyblockCraftingRecipe> getRecipesStream() {
         return recipes.stream();
     }

@@ -12,6 +12,9 @@ import me.shedaniel.rei.api.client.registry.category.CategoryRegistry;
 import me.shedaniel.rei.api.client.registry.display.DisplayRegistry;
 import me.shedaniel.rei.api.client.registry.entry.EntryRegistry;
 import me.shedaniel.rei.api.client.registry.screen.ExclusionZones;
+import me.shedaniel.rei.api.client.registry.transfer.TransferHandler;
+import me.shedaniel.rei.api.client.registry.transfer.TransferHandlerRegistry;
+import me.shedaniel.rei.api.client.registry.transfer.simple.SimpleTransferHandler;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.minecraft.client.gui.screen.ingame.InventoryScreen;
@@ -24,22 +27,25 @@ import java.util.List;
  */
 public class SkyblockerREIClientPlugin implements REIClientPlugin {
     public static final CategoryIdentifier<SkyblockCraftingDisplay> SKYBLOCK = CategoryIdentifier.of(SkyblockerMod.NAMESPACE, "skyblock");
-
+	public static final CategoryIdentifier<SkyblockForgeDisplay> SKYBLOCK_FORGE = CategoryIdentifier.of(SkyblockerMod.NAMESPACE, "skyblock_forge");
     @Override
     public void registerCategories(CategoryRegistry categoryRegistry) {
         categoryRegistry.addWorkstations(SKYBLOCK, EntryStacks.of(Items.CRAFTING_TABLE));
         categoryRegistry.add(new SkyblockCategory());
+		categoryRegistry.add(new SkyblockForgeCategory());
     }
-
+	@Override
+	public void registerTransferHandlers(TransferHandlerRegistry registry) {
+		registry.register(new SkyblockREITransferHandler());
+		}
     @Override
     public void registerDisplays(DisplayRegistry displayRegistry) {
         displayRegistry.registerDisplayGenerator(SKYBLOCK, new SkyblockCraftingDisplayGenerator());
+		displayRegistry.registerDisplayGenerator(SKYBLOCK_FORGE, new SkyblockForgeDisplayGenerator());
     }
 
     @Override
-    public void registerEntries(EntryRegistry entryRegistry) {
-        entryRegistry.addEntries(ItemRepository.getItemsStream().map(EntryStacks::of).toList());
-    }
+    public void registerEntries(EntryRegistry entryRegistry) {entryRegistry.addEntries(ItemRepository.getItemsStream().map(EntryStacks::of).toList());}
 
     @Override
     public void registerExclusionZones(ExclusionZones zones) {
