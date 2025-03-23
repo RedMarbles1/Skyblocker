@@ -25,7 +25,7 @@ public class SkyblockForgeRecipe {
 	public static SkyblockForgeRecipe fromNEURecipe(NEUForgeRecipe neuForgeRecipe) {
 		SkyblockForgeRecipe recipe = new SkyblockForgeRecipe(neuForgeRecipe.getDuration());
 		for (NEUIngredient input : neuForgeRecipe.getInputs()) {
-			recipe.grid.add(getItemStack(input));
+				recipe.grid.add(getItemStack(input));
 		}
 		recipe.result = getItemStack(neuForgeRecipe.getOutputStack());
 		return recipe;
@@ -36,7 +36,10 @@ public class SkyblockForgeRecipe {
 			ItemStack stack = ItemRepository.getItemStack(input.getItemId());
 			if (stack != null) {
 				return stack.copyWithCount((int) input.getAmount());
+			} else if (input.getItemId().equals("SKYBLOCK_COIN")){
+				return ItemUtils.getCoinsStack(input.getAmount());
 			} else {
+
 				LOGGER.warn("[Skyblocker Recipe] Unable to find item {}", input.getItemId());
 			}
 		}

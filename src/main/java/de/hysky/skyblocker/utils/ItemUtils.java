@@ -33,13 +33,18 @@ import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.dynamic.Codecs;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.*;
+import java.text.NumberFormat;
+import java.util.List;
+import java.util.Locale;
+import java.util.Optional;
+import java.util.OptionalDouble;
 import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -440,7 +445,22 @@ public final class ItemUtils {
             throw new RuntimeException(e);
         }
     }
-
+	/**
+	 * Converts an amount of coins to an {@link ItemStack} with the amount added to the item name.
+	 * @param coinAmount the amount of coins
+	 * @return An {@link ItemStack} with the coin head item
+	 **/
+	public static @NotNull ItemStack getCoinsStack(double coinAmount){
+		try {
+			ItemStack stack = new ItemStack(Items.PLAYER_HEAD);
+			stack.set(DataComponentTypes.PROFILE, new ProfileComponent(Optional.of("SkyblockCoinStack"), Optional.of(java.util.UUID.randomUUID()), propertyMapWithTexture("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTVmZDY3ZDU2ZmZjNTNmYjM2MGExNzg3OWQ5YjUzMzhkNzMzMmQ4ZjEyOTQ5MWE1ZTE3ZThkNmU4YWVhNmMzYSJ9fX0=")));
+			String formattedAmount = NumberFormat.getInstance(Locale.US).format(coinAmount);
+			stack.set(DataComponentTypes.CUSTOM_NAME, Text.literal(formattedAmount).setStyle(Style.EMPTY.withItalic(false).withColor(Formatting.GOLD)).append(Text.literal(" Coins")));
+			return stack;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
     /**
      * Utility method.
      */
