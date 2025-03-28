@@ -29,7 +29,7 @@ public class SkyblockForgeRecipe implements SkyblockRecipe {
         inputs = forgeRecipe.getInputs().stream().map(SkyblockRecipe::getItemStack).toList();
         output = SkyblockRecipe.getItemStack(forgeRecipe.getOutputStack());
 		int duration = forgeRecipe.getDuration();
-		durationString = SkyblockTime.formatTime(duration).toString();
+		durationString = SkyblockTime.formatTime(duration).getLiteralString();
     }
 
 	public ItemStack getResult() {

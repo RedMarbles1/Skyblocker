@@ -27,7 +27,7 @@ public class SkyblockKatUpgradeRecipe implements SkyblockRecipe{
 	public SkyblockKatUpgradeRecipe(NEUKatUpgradeRecipe katUpgradeRecipe){
 		inputs = katUpgradeRecipe.getAllInputs().stream().map(SkyblockRecipe::getItemStack).toList();
 		output = SkyblockRecipe.getItemStack(katUpgradeRecipe.getOutput());
-		upgradeTimeString = SkyblockTime.formatTime(katUpgradeRecipe.getSeconds()).toString();
+		upgradeTimeString = SkyblockTime.formatTime(katUpgradeRecipe.getSeconds()).getLiteralString();
 	}
 	public Vector2i getGridSize() {
 		int gridWidth;
