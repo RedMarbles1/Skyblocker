@@ -450,6 +450,7 @@ public final class ItemUtils {
 	 * @param coinAmount the amount of coins
 	 * @return An {@link ItemStack} with the coin head item
 	 **/
+	//TODO replace the head texture with the actual skyblock coin head
 	public static @NotNull ItemStack getCoinsStack(double coinAmount){
 		try {
 			ItemStack stack = new ItemStack(Items.PLAYER_HEAD);

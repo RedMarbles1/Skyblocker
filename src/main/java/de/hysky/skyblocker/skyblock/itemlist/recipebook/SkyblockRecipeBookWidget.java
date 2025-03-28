@@ -1,15 +1,8 @@
 package de.hysky.skyblocker.skyblock.itemlist.recipebook;
 
-import java.util.List;
-import java.util.Locale;
-
-import de.hysky.skyblocker.utils.render.gui.CyclingTextureWidget;
-import net.minecraft.screen.ScreenHandler;
-import org.jetbrains.annotations.Nullable;
-
 import com.google.common.collect.Lists;
-
 import de.hysky.skyblocker.mixins.accessors.RecipeBookWidgetAccessor;
+import de.hysky.skyblocker.utils.render.gui.CyclingTextureWidget;
 import it.unimi.dsi.fastutil.Pair;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
@@ -23,15 +16,20 @@ import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.recipe.RecipeFinder;
 import net.minecraft.recipe.display.RecipeDisplay;
+import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.text.Text;
 import net.minecraft.util.context.ContextParameterMap;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
+import java.util.Locale;
 
 /**
- * Based on {@link net.minecraft.client.gui.screen.recipebook.RecipeBookWidget}.
+ * Based on {@link RecipeBookWidget}.
  */
 public class SkyblockRecipeBookWidget extends RecipeBookWidget<NoopRecipeScreenHandler> {
-	protected static final int IMAGE_WIDTH = RecipeBookWidget.field_32408;
+	private static final int IMAGE_WIDTH = RecipeBookWidget.field_32408;
 	private static final int IMAGE_HEIGHT = RecipeBookWidget.field_32409;
 	//Corresponds to field_32410 in RecipeBookWidget
 	private static final int OFFSET_X_POSITION = 86;
@@ -42,7 +40,7 @@ public class SkyblockRecipeBookWidget extends RecipeBookWidget<NoopRecipeScreenH
 	 * The tabs in the Skyblock recipe book.
 	 */
 	private final List<RecipeTab> tabs = List.of(
-			new SkyblockCraftingTab(this, SkyblockCraftingTab.CRAFTING_TABLE, new SkyblockCraftingRecipeResults()),
+			new SkyblockCraftingTab(this, SkyblockCraftingTab.CRAFTING_TABLE, new SkyblockRecipeResults()),
 			new UpcomingEventsTab()
 			);
 	private final List<Pair<RecipeTab, SkyblockRecipeTabButton>> tabButtons = Lists.newArrayList();
@@ -106,7 +104,7 @@ public class SkyblockRecipeBookWidget extends RecipeBookWidget<NoopRecipeScreenH
 
 		//Tab Init
 		this.currentTab.left().initialize(this.client, left, top);
-		this.currentTab.left().updateSearchResults(defaultSearchText, FilterOption.ALL);
+		this.currentTab.left().initializeSearchResults(defaultSearchText);
 	}
 
 	@Override

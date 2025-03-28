@@ -7,7 +7,7 @@ import net.minecraft.client.render.RenderLayer;
 import net.minecraft.item.ItemStack;
 
 /**
- * Based off {@link net.minecraft.client.gui.screen.recipebook.RecipeGroupButtonWidget}
+ * Based off {@link RecipeGroupButtonWidget}
  */
 public class SkyblockRecipeTabButton extends ToggleButtonWidget {
 	protected final ItemStack icon;

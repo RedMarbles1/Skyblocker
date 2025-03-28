@@ -1,8 +1,5 @@
 package de.hysky.skyblocker.skyblock.itemlist.recipebook;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
@@ -13,6 +10,10 @@ import net.minecraft.client.render.RenderLayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SkyblockRecipeResultButton extends ClickableWidget {
 	//Corresponds to AnimatedResultButton#field_32415
@@ -25,14 +26,20 @@ public class SkyblockRecipeResultButton extends ClickableWidget {
 		super(0, 0, SIZE, SIZE, ScreenTexts.EMPTY);
 	}
 
-	protected ItemStack getDisplayStack() {
+	protected SkyblockRecipeResultButton(int x, int y) {
+		this();
+		setPosition(x, y);
+	}
+
+	protected @Nullable ItemStack getDisplayStack() {
 		return this.itemStack;
 	}
 
-	protected void setDisplayStack(ItemStack stack) {
+	protected SkyblockRecipeResultButton setDisplayStack(ItemStack stack) {
 		this.active = !stack.isEmpty();
 		this.visible = true;
 		this.itemStack = stack;
+		return this;
 	}
 
 	protected void clearDisplayStack() {
