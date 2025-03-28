@@ -36,7 +36,7 @@ public class SkyblockerREIClientPlugin implements REIClientPlugin {
         categoryRegistry.addWorkstations(CategoryIdentifier.of(SkyblockForgeRecipe.IDENTIFIER), EntryStacks.of(Items.ANVIL));
         categoryRegistry.add(new SkyblockRecipeCategory(SkyblockCraftingRecipe.IDENTIFIER, Text.translatable("emi.category.skyblocker.skyblock_crafting"), ItemUtils.getSkyblockerStack(), 73));
         categoryRegistry.add(new SkyblockRecipeCategory(SkyblockForgeRecipe.IDENTIFIER, Text.translatable("emi.category.skyblocker.skyblock_forge"), new ItemStack(Items.LAVA_BUCKET), 84));
-		categoryRegistry.add(new SkyblockRecipeCategory(SkyblockKatUpgradeRecipe.IDENTIFIER, Text.translatable("emi.category.skyblocker.skyblock_forge"), new ItemStack(Items.ROSE_BUSH),73));
+		categoryRegistry.add(new SkyblockRecipeCategory(SkyblockKatUpgradeRecipe.IDENTIFIER, Text.translatable("emi.category.skyblocker.skyblock_kat_upgrade"), new ItemStack(Items.ROSE_BUSH),73));
     }
 
     @Override
